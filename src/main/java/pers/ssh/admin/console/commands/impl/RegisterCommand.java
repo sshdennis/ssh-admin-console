@@ -22,6 +22,6 @@ public class RegisterCommand extends InputCommand {
 
     @Override
     public void execute() throws Exception {
-        System.out.println("RegisterCommand");
+        //
     }
 }
