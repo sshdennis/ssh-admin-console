@@ -18,7 +18,7 @@ public class Logger {
      */
     public static void debug(final String msg) {
         if (isDebug) {
-            System.out.println(msg);
+            System.out.println("[DEBUG] " + msg);
         }
     }
 
@@ -30,7 +30,7 @@ public class Logger {
      */
     public static void error(final String msg, final Throwable t) {
         if (isDebug) {
-            System.out.println(msg + ". - Error message: " + t.getMessage());
+            System.out.println("[ERROR] " + msg + ". - Error message: " + t.getMessage());
             for (final Object st : t.getStackTrace()) {
                 System.out.println("\t" + st);
             }

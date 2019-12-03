@@ -5,7 +5,7 @@ package pers.ssh.admin.console.entity;
  * Date:     2019/12/1 2:14 下午
  * Description: User entity.
  */
-public class User {
+public class User extends BaseEntuty {
 
     private String name;
 
@@ -15,5 +15,13 @@ public class User {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + this.getId() + '\'' +
+                ", name='" + this.name + '\'' +
+                '}';
     }
 }

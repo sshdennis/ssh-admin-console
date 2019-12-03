@@ -1,5 +1,7 @@
 package pers.ssh.admin.console.commands;
 
+import pers.ssh.admin.console.beans.CommandResponse;
+
 /**
  * Author:   Dennis Su
  * Date:     2019/12/1 10:56 上午
@@ -7,9 +9,9 @@ package pers.ssh.admin.console.commands;
  */
 public interface Command {
 
-    void setParameters(String... parameters);
+    void setParameters(String... parameters) throws IllegalArgumentException;
 
-    void execute() throws Exception;
+    CommandResponse execute() throws Exception;
 
     void preExecute() throws Exception;
 
