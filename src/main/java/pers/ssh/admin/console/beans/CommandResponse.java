@@ -1,5 +1,7 @@
 package pers.ssh.admin.console.beans;
 
+import pers.ssh.admin.console.constants.AdminConsoleConstants;
+
 /**
  * Author:   dsu01
  * Date:     2019/12/4 12:48 上午
@@ -9,6 +11,10 @@ public class CommandResponse {
 
     private boolean isSuccess = false;
     private String response;
+
+    public static CommandResponse success() {
+        return success(AdminConsoleConstants.RES_SUCCESS);
+    }
 
     public static CommandResponse success(final String responseMsg) {
         final CommandResponse res = new CommandResponse();

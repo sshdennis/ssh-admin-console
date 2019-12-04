@@ -1,5 +1,7 @@
 package pers.ssh.admin.console.commands;
 
+import java.util.List;
+
 import pers.ssh.admin.console.beans.CommandResponse;
 
 /**
@@ -9,7 +11,7 @@ import pers.ssh.admin.console.beans.CommandResponse;
  */
 public interface Command {
 
-    void setParameters(String... parameters) throws IllegalArgumentException;
+    void setParameters(List<String> parameters) throws IllegalArgumentException;
 
     CommandResponse execute() throws Exception;
 

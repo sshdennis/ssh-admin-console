@@ -1,8 +1,9 @@
 package pers.ssh.admin.console.commands.impl;
 
+import java.util.List;
+
 import pers.ssh.admin.console.beans.CommandResponse;
 import pers.ssh.admin.console.commands.InputCommand;
-import pers.ssh.admin.console.constants.AdminConsoleConstants;
 import pers.ssh.admin.console.daos.UserDao;
 import pers.ssh.admin.console.daos.impl.UserDaoImpl;
 import pers.ssh.admin.console.entity.User;
@@ -18,8 +19,8 @@ public class RegisterCommand extends InputCommand {
     private String userName;
 
     @Override
-    protected void setupParameters(final String[] parameters) {
-        this.userName = parameters[0];
+    protected void setupParameters(final List<String> parameters) {
+        this.userName = parameters.get(0);
     }
 
     @Override
@@ -28,6 +29,6 @@ public class RegisterCommand extends InputCommand {
         user.setName(this.userName);
         this.userDao.create(user);
 
-        return CommandResponse.success(AdminConsoleConstants.RES_SUCCESS);
+        return CommandResponse.success();
     }
 }

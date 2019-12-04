@@ -1,8 +1,11 @@
 package pers.ssh.admin.console.daos;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -20,7 +23,7 @@ public class GlobalDataPool {
     private static final AtomicLong userId = new AtomicLong(0);
     private static final Map<Long, User> userMap = new HashMap<>();
 
-    private static final AtomicLong listingId = new AtomicLong(0);
+    private static final AtomicLong listingId = new AtomicLong(100000);
     private static final Map<Long, Listing> listingMap = new HashMap<>();
 
     private static final AtomicLong categoryId = new AtomicLong(0);
@@ -44,5 +47,35 @@ public class GlobalDataPool {
             return null;
         }
         return us.get(0);
+    }
+
+    public static Listing createListing(final Listing listing) throws Exception {
+        final User existUser = findUserByName(listing.getUserName());
+        if (existUser == null) {
+            throw new Exception("unknown user");
+        }
+        final long newId = listingId.incrementAndGet();
+        listing.setId(newId);
+        listing.setCreatedAt(new Date());
+        existUser.getListings().add(listing);
+        listingMap.put(listing.getId(), listing);
+        return listing;
+    }
+
+    public static Listing findListingById(final Long listingId) {
+        return listingMap.get(listingId);
+    }
+
+    public static void deleteListing(final Listing listing) {
+        listingMap.remove(listing.getId());
+
+        final User user = findUserByName(listing.getUserName());
+        for (final Iterator<Listing> it = user.getListings().iterator(); it.hasNext(); ) {
+            final Listing lis = it.next();
+            if (Objects.equals(lis.getId(), listing.getId())) {
+                it.remove();
+                break;
+            }
+        }
     }
 }

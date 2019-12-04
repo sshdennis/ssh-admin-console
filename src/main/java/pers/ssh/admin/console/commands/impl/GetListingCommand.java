@@ -10,30 +10,25 @@ import pers.ssh.admin.console.daos.impl.ListingDaoImpl;
 import pers.ssh.admin.console.daos.impl.UserDaoImpl;
 import pers.ssh.admin.console.entity.Listing;
 import pers.ssh.admin.console.entity.User;
+import pers.ssh.admin.console.utils.Logger;
 
 /**
- * Author:   Dennis Su
- * Date:     2019/12/1 10:59 上午
+ * Author:   dsu01
+ * Date:     2019/12/5 12:24 上午
  * Description:
  */
-public class CreateListingCommand extends InputCommand {
+public class GetListingCommand extends InputCommand {
 
     private final UserDao userDao = new UserDaoImpl();
     private final ListingDao listingDao = new ListingDaoImpl();
 
     private String userName;
-    private String title;
-    private String description;
-    private long price;
-    private String category;
+    private long listingId;
 
     @Override
     protected void setupParameters(final List<String> parameters) {
         this.userName = parameters.get(0);
-        this.title = parameters.get(1);
-        this.description = parameters.get(2);
-        this.price = Long.valueOf(parameters.get(3));
-        this.category = parameters.get(4);
+        this.listingId = Long.valueOf(parameters.get(1));
     }
 
     @Override
@@ -43,14 +38,12 @@ public class CreateListingCommand extends InputCommand {
             throw new Exception("unknown user");
         }
 
-        final Listing listing = new Listing();
-        listing.setUserName(this.userName);
-        listing.setTitle(this.title);
-        listing.setDescription(this.description);
-        listing.setPrice(this.price);
-        listing.setCategory(this.category);
-        this.listingDao.createListing(listing);
+        final Listing listing = this.listingDao.findById(this.listingId);
+        if (listing == null) {
+            throw new Exception("not found");
+        }
 
-        return CommandResponse.success(String.valueOf(listing.getId()));
+        Logger.debug(listing.toString());
+        return CommandResponse.success(listing.toString());
     }
 }

@@ -1,7 +1,11 @@
 package pers.ssh.admin.console.commands;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import pers.ssh.admin.console.constants.CommandType;
 import pers.ssh.admin.console.properties.EnvConstants;
@@ -18,6 +22,8 @@ public class CommandFactory {
     private static final String BASE_INPUT_COMMAND_PACKAGE = EnvProperty.getString(EnvConstants.BASE_INPUT_COMMAND_PACKAGE);
     private static final String INPUT_COMMAND_PREFIX = EnvProperty.getString(EnvConstants.INPUT_COMMAND_PREFIX);
 
+    private static final Pattern COMMAND_INPUT_PATTERN = Pattern.compile("\'(.*?)\'");
+
     /**
      * Create command by given input command line input.
      *
@@ -29,9 +35,9 @@ public class CommandFactory {
         if (StringUtils.isBlank(input)) {
             throw new Exception("Invalid input");
         }
-        final String[] ins = cleanInput(input);
+        final List<String> ins = cleanInput(input);
         final String cmdName = findCommandName(ins);
-        final String[] parameters = findCommandParameters(ins);
+        final List<String> parameters = findCommandParameters(ins);
 
         final CommandType cmd = CommandType.valueOf(cmdName);
         final String commandClassPath = BASE_INPUT_COMMAND_PACKAGE + "." + EnvProperty.getString(INPUT_COMMAND_PREFIX + cmd.name());
@@ -42,21 +48,42 @@ public class CommandFactory {
         return command;
     }
 
-    private static String[] cleanInput(final String input) {
-        String[] ins = input.split(" ");
-        ins = Stream.of(ins).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
-        return ins;
-    }
+    private static List<String> cleanInput(final String input) {
+        final Matcher matcher = COMMAND_INPUT_PATTERN.matcher(input);
 
-    private static String findCommandName(final String[] ins) {
-        return ins[0].toUpperCase();
-    }
+        String remain = input;
+        final List<String> cmds = new ArrayList<>();
+        while (matcher.find()) {
+            final String foundStr = matcher.group().trim();
+            final String[] parts = remain.split(foundStr);
+            final String[] frontParts = parts[0].split(" ");
+            cmds.addAll(Arrays.asList(frontParts));
 
-    private static String[] findCommandParameters(final String[] ins) {
-        String[] parameters = null;
-        if (ins.length > 1) {
-            parameters = Arrays.copyOfRange(ins, 1, ins.length);
+            if (parts.length > 1) {
+                remain = parts[1];
+            } else {
+                // the end
+                remain = "";
+            }
+            cmds.add(foundStr.replaceAll("\'", ""));
         }
-        return parameters;
+
+        if (StringUtils.isNotBlank(remain)) {
+            final String[] lastParts = remain.split(" ");
+            cmds.addAll(Arrays.asList(lastParts));
+        }
+
+        return cmds.stream().filter(StringUtils::isNotBlank).collect(Collectors.toList());
+    }
+
+    private static String findCommandName(final List<String> ins) {
+        return ins.get(0).toUpperCase();
+    }
+
+    private static List<String> findCommandParameters(final List<String> ins) {
+        if (ins.size() > 1) {
+            return ins.subList(1, ins.size());
+        }
+        return new ArrayList<>();
     }
 }

@@ -1,8 +1,9 @@
 package pers.ssh.admin.console.commands.impl;
 
+import java.util.List;
+
 import pers.ssh.admin.console.beans.CommandResponse;
 import pers.ssh.admin.console.commands.InputCommand;
-import pers.ssh.admin.console.constants.AdminConsoleConstants;
 
 /**
  * Author:   Dennis Su
@@ -12,13 +13,13 @@ import pers.ssh.admin.console.constants.AdminConsoleConstants;
 public class ExitCommand extends InputCommand {
 
     @Override
-    protected void setupParameters(final String[] parameters) {
+    protected void setupParameters(final List<String> parameters) {
         // nothing
     }
 
     @Override
     public CommandResponse execute() throws Exception {
         System.exit(0);
-        return CommandResponse.success(AdminConsoleConstants.RES_SUCCESS);
+        return CommandResponse.success();
     }
 }

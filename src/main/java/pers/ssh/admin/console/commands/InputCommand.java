@@ -1,5 +1,7 @@
 package pers.ssh.admin.console.commands;
 
+import java.util.List;
+
 import pers.ssh.admin.console.utils.Logger;
 
 /**
@@ -10,11 +12,7 @@ import pers.ssh.admin.console.utils.Logger;
 public abstract class InputCommand implements Command {
 
     @Override
-    public void setParameters(final String... parameters) throws IllegalArgumentException {
-        if (parameters == null || parameters.length == 0) {
-            throw new IllegalArgumentException();
-        }
-
+    public void setParameters(final List<String> parameters) throws IllegalArgumentException {
         for (final String parameter : parameters) {
             Logger.debug("Input parameter: " + parameter);
         }
@@ -32,5 +30,5 @@ public abstract class InputCommand implements Command {
 
     }
 
-    protected abstract void setupParameters(String[] parameters);
+    protected abstract void setupParameters(List<String> parameters);
 }
