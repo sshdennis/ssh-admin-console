@@ -27,7 +27,7 @@ public abstract class InputCommand implements Command {
 
     @Override
     public void postExecute() throws Exception {
-
+        // nothing
     }
 
     protected abstract void setupParameters(List<String> parameters);

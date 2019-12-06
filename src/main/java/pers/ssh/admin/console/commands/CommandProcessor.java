@@ -10,6 +10,13 @@ import pers.ssh.admin.console.utils.Logger;
  */
 public class CommandProcessor {
 
+    /**
+     * Process Command by the given input string.
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
     public static CommandResponse process(final String input) throws Exception {
         try {
             final Command cmd = CommandFactory.createCommand(input);

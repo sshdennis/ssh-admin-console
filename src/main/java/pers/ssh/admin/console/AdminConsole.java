@@ -38,9 +38,9 @@ public class AdminConsole {
         }
 
         if (commandResponse.isSuccess()) {
-            System.out.println(commandResponse.getResponse());
+            Logger.output(commandResponse.getResponse());
         } else {
-            System.out.println("Error - " + commandResponse.getResponse());
+            Logger.output("Error - " + commandResponse.getResponse());
         }
     }
 

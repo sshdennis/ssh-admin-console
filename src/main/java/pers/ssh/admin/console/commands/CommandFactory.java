@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import pers.ssh.admin.console.constants.CommandType;
+import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.properties.EnvConstants;
 import pers.ssh.admin.console.properties.EnvProperty;
 import pers.ssh.admin.console.utils.StringUtils;
@@ -33,7 +34,7 @@ public class CommandFactory {
      */
     public static Command createCommand(final String input) throws Exception {
         if (StringUtils.isBlank(input)) {
-            throw new Exception("Invalid input");
+            throw new Exception(ErrorMessage.INVALID_INPUT);
         }
         final List<String> ins = cleanInput(input);
         final String cmdName = findCommandName(ins);

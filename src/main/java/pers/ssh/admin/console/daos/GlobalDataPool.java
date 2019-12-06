@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import pers.ssh.admin.console.constants.CategoryOrderBy;
 import pers.ssh.admin.console.constants.CategorySortBy;
+import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.entity.Category;
 import pers.ssh.admin.console.entity.Listing;
 import pers.ssh.admin.console.entity.User;
@@ -35,7 +36,7 @@ public class GlobalDataPool {
     public static User createUser(final User user) throws Exception {
         final User existUser = findUserByName(user.getName());
         if (existUser != null) {
-            throw new Exception("user already existing");
+            throw new Exception(ErrorMessage.USER_EXISTING);
         }
         final long newId = userId.incrementAndGet();
         user.setId(newId);
@@ -55,7 +56,7 @@ public class GlobalDataPool {
     public static Listing createListing(final Listing listing) throws Exception {
         final User existUser = findUserByName(listing.getUserName());
         if (existUser == null) {
-            throw new Exception("unknown user");
+            throw new Exception(ErrorMessage.USER_UNKNOWN);
         }
 
         // listing
@@ -109,6 +110,9 @@ public class GlobalDataPool {
 
     public static List<Listing> findListingByCategory(final String categoryName, final CategorySortBy sortBy, final CategoryOrderBy orderBy) {
         final Category category = listingCategoryMapping.get(categoryName);
+        if (category == null) {
+            return null;
+        }
 
         final List<Listing> listings = category.getListings();
         if (sortBy != null && orderBy != null) {

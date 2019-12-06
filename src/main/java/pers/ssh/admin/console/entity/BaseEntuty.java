@@ -1,7 +1,7 @@
 package pers.ssh.admin.console.entity;
 
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/4 12:14 上午
  * Description: Base entity.
  */

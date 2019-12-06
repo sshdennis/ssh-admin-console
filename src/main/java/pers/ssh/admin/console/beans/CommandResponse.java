@@ -1,21 +1,32 @@
 package pers.ssh.admin.console.beans;
 
-import pers.ssh.admin.console.constants.AdminConsoleConstants;
-
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/4 12:48 上午
  * Description: For Command process response.
  */
 public class CommandResponse {
 
+    public static String RES_SUCCESS = "Success";
+
     private boolean isSuccess = false;
     private String response;
 
+    /**
+     * Return success CommandResponse with success message.
+     *
+     * @return
+     */
     public static CommandResponse success() {
-        return success(AdminConsoleConstants.RES_SUCCESS);
+        return success(RES_SUCCESS);
     }
 
+    /**
+     * Return success CommandResponse with the given responseMsg.
+     *
+     * @param responseMsg
+     * @return
+     */
     public static CommandResponse success(final String responseMsg) {
         final CommandResponse res = new CommandResponse();
         res.setSuccess(true);
@@ -23,6 +34,12 @@ public class CommandResponse {
         return res;
     }
 
+    /**
+     * Return error CommandResponse with the given responseMsg.
+     *
+     * @param responseMsg
+     * @return
+     */
     public static CommandResponse error(final String responseMsg) {
         final CommandResponse res = new CommandResponse();
         res.setSuccess(false);

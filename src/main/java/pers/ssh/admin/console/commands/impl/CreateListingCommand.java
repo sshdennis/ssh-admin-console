@@ -5,9 +5,7 @@ import java.util.List;
 import pers.ssh.admin.console.beans.CommandResponse;
 import pers.ssh.admin.console.commands.InputAuthCommand;
 import pers.ssh.admin.console.daos.ListingDao;
-import pers.ssh.admin.console.daos.UserDao;
 import pers.ssh.admin.console.daos.impl.ListingDaoImpl;
-import pers.ssh.admin.console.daos.impl.UserDaoImpl;
 import pers.ssh.admin.console.entity.Listing;
 
 /**
@@ -17,7 +15,6 @@ import pers.ssh.admin.console.entity.Listing;
  */
 public class CreateListingCommand extends InputAuthCommand {
 
-    private final UserDao userDao = new UserDaoImpl();
     private final ListingDao listingDao = new ListingDaoImpl();
 
     private String userName;

@@ -5,21 +5,19 @@ import java.util.Objects;
 
 import pers.ssh.admin.console.beans.CommandResponse;
 import pers.ssh.admin.console.commands.InputAuthCommand;
+import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.daos.ListingDao;
-import pers.ssh.admin.console.daos.UserDao;
 import pers.ssh.admin.console.daos.impl.ListingDaoImpl;
-import pers.ssh.admin.console.daos.impl.UserDaoImpl;
 import pers.ssh.admin.console.entity.Listing;
 import pers.ssh.admin.console.utils.Logger;
 
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/5 12:07 上午
  * Description:
  */
 public class DeleteListingCommand extends InputAuthCommand {
 
-    private final UserDao userDao = new UserDaoImpl();
     private final ListingDao listingDao = new ListingDaoImpl();
 
     private String userName;
@@ -35,12 +33,12 @@ public class DeleteListingCommand extends InputAuthCommand {
     public CommandResponse execute() throws Exception {
         final Listing listing = this.listingDao.findById(this.listingId);
         if (listing == null) {
-            throw new Exception("listing does not exist");
+            throw new Exception(ErrorMessage.LISTING_NOT_EXISTING);
         }
         Logger.debug(listing.toString());
 
         if (!Objects.equals(this.authUser.getName(), listing.getUserName())) {
-            throw new Exception("listing owner mismatch");
+            throw new Exception(ErrorMessage.LISTING_OWNER_MISMATCH);
         }
         this.listingDao.delete(listing);
 

@@ -9,7 +9,7 @@ import pers.ssh.admin.console.daos.impl.CategoryDaoImpl;
 import pers.ssh.admin.console.entity.Category;
 
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/5 6:52 下午
  * Description:
  */

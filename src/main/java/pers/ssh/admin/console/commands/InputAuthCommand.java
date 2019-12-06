@@ -2,12 +2,13 @@ package pers.ssh.admin.console.commands;
 
 import java.util.List;
 
+import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.daos.UserDao;
 import pers.ssh.admin.console.daos.impl.UserDaoImpl;
 import pers.ssh.admin.console.entity.User;
 
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/5 11:51 上午
  * Description:
  */
@@ -22,7 +23,7 @@ public abstract class InputAuthCommand extends InputCommand {
         final String userName = parameters.get(0);
         this.authUser = this.userDao.findByUserName(userName);
         if (this.authUser == null) {
-            throw new Exception("unknown user");
+            throw new Exception(ErrorMessage.USER_UNKNOWN);
         }
     }
 }
