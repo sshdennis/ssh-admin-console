@@ -1,5 +1,9 @@
 package pers.ssh.admin.console.daos.impl;
 
+import java.util.List;
+
+import pers.ssh.admin.console.constants.CategoryOrderBy;
+import pers.ssh.admin.console.constants.CategorySortBy;
 import pers.ssh.admin.console.daos.GlobalDataPool;
 import pers.ssh.admin.console.daos.ListingDao;
 import pers.ssh.admin.console.entity.Listing;
@@ -24,5 +28,10 @@ public class ListingDaoImpl implements ListingDao {
     @Override
     public void delete(final Listing listing) {
         GlobalDataPool.deleteListing(listing);
+    }
+
+    @Override
+    public List<Listing> findByCategory(final String category, final CategorySortBy sortBy, final CategoryOrderBy orderBy) {
+        return GlobalDataPool.findListingByCategory(category, sortBy, orderBy);
     }
 }

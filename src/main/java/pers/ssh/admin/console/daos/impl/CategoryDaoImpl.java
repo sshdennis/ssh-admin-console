@@ -1,6 +1,10 @@
 package pers.ssh.admin.console.daos.impl;
 
+import java.util.List;
+
 import pers.ssh.admin.console.daos.CategoryDao;
+import pers.ssh.admin.console.daos.GlobalDataPool;
+import pers.ssh.admin.console.entity.Category;
 
 /**
  * Author:   Dennis Su
@@ -8,4 +12,9 @@ import pers.ssh.admin.console.daos.CategoryDao;
  * Description: Category data access object.
  */
 public class CategoryDaoImpl implements CategoryDao {
+
+    @Override
+    public List<Category> findByOrderByListingsDescLimit(int limit) {
+        return GlobalDataPool.findCategoryOrderByListingsDescLimit(limit);
+    }
 }

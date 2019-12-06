@@ -12,7 +12,7 @@ import pers.ssh.admin.console.utils.Logger;
 public abstract class InputCommand implements Command {
 
     @Override
-    public void setParameters(final List<String> parameters) throws IllegalArgumentException {
+    public void setParameters(final List<String> parameters) throws Exception {
         for (final String parameter : parameters) {
             Logger.debug("Input parameter: " + parameter);
         }

@@ -11,7 +11,7 @@ import pers.ssh.admin.console.beans.CommandResponse;
  */
 public interface Command {
 
-    void setParameters(List<String> parameters) throws IllegalArgumentException;
+    void setParameters(List<String> parameters) throws Exception;
 
     CommandResponse execute() throws Exception;
 

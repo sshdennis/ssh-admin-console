@@ -1,5 +1,9 @@
 package pers.ssh.admin.console.daos;
 
+import java.util.List;
+
+import pers.ssh.admin.console.constants.CategoryOrderBy;
+import pers.ssh.admin.console.constants.CategorySortBy;
 import pers.ssh.admin.console.entity.Listing;
 
 /**
@@ -14,4 +18,6 @@ public interface ListingDao {
     public Listing findById(Long id);
 
     public void delete(Listing listing);
+
+    public List<Listing> findByCategory(String category, CategorySortBy sortBy, CategoryOrderBy orderBy);
 }

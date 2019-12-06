@@ -67,6 +67,13 @@ public class Listing extends BaseEntuty {
 
     @Override
     public String toString() {
-        return this.title + "|" + this.description + "|" + this.price + "|" + this.createdAt + "|" + this.category + "|" + this.userName;
+        return "Listing{" +
+                "userName='" + this.userName + '\'' +
+                ", createdAt=" + this.createdAt +
+                ", title='" + this.title + '\'' +
+                ", description='" + this.description + '\'' +
+                ", price=" + this.price +
+                ", category='" + this.category + '\'' +
+                '}';
     }
 }
