@@ -17,6 +17,7 @@ import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.entity.Category;
 import pers.ssh.admin.console.entity.Listing;
 import pers.ssh.admin.console.entity.User;
+import pers.ssh.admin.console.utils.Logger;
 
 /**
  * Author:   Dennis Su
@@ -25,13 +26,13 @@ import pers.ssh.admin.console.entity.User;
  */
 public class GlobalDataPool {
 
-    private static final AtomicLong userId = new AtomicLong(0);
-    private static final Map<Long, User> userMap = new HashMap<>();
+    private static AtomicLong userId = new AtomicLong(0);
+    private static Map<Long, User> userMap = new HashMap<>();
 
-    private static final AtomicLong listingId = new AtomicLong(100000);
-    private static final Map<Long, Listing> listingMap = new HashMap<>();
+    private static AtomicLong listingId = new AtomicLong(100000);
+    private static Map<Long, Listing> listingMap = new HashMap<>();
 
-    private static final Map<String, Category> listingCategoryMapping = new HashMap<>();
+    private static Map<String, Category> listingCategoryMapping = new HashMap<>();
 
     public static User createUser(final User user) throws Exception {
         final User existUser = findUserByName(user.getName());
@@ -139,17 +140,44 @@ public class GlobalDataPool {
         return listings;
     }
 
-    public static List<Category> findCategoryOrderByListingsDescLimit(final int limit) {
-        final List<Category> categories = new ArrayList<>(listingCategoryMapping.values());
-        if (categories == null || categories.size() == 0) {
-            return new ArrayList<>();
+    public static Category findOneCategoryOrderByListingsDesc() {
+        if (listingCategoryMapping.size() == 0) {
+            return null;
         }
-//        Comparator<Category> comp = Comparator.comparing(e -> e.getListings().size()).reversed();
 
+        final List<Category> categories = new ArrayList<>(listingCategoryMapping.values());
         final Comparator<Category> comp = Comparator.comparing(e -> e.getListings().size());
         categories.sort(comp.reversed());
+        return categories.get(0);
+    }
 
+    public static void reset() {
+        userId = new AtomicLong(0);
+        userMap = new HashMap<>();
 
-        return categories.subList(0, limit > categories.size() ? categories.size() : limit);
+        listingId = new AtomicLong(100000);
+        listingMap = new HashMap<>();
+
+        listingCategoryMapping = new HashMap<>();
+    }
+
+    public static void status() {
+        // for debug
+        Logger.debug("USER ID- " + userId.get());
+        for (final Map.Entry<Long, User> userEntry : userMap.entrySet()) {
+            Logger.debug("\tUSER ID - " + userEntry.getKey());
+            Logger.debug("\tUSER    - " + userEntry.getValue());
+        }
+        System.out.println("=====");
+        Logger.debug("LISTING ID- " + listingId.get());
+        for (final Map.Entry<Long, Listing> listingEntry : listingMap.entrySet()) {
+            Logger.debug("\tLISTING ID - " + listingEntry.getKey());
+            Logger.debug("\tLISTING    - " + listingEntry.getValue());
+        }
+        System.out.println("=====");
+        for (final Map.Entry<String, Category> categoryEntry : listingCategoryMapping.entrySet()) {
+            Logger.debug("\tCATEGORY NAME - " + categoryEntry.getKey());
+            Logger.debug("\tCATEGORY      - " + categoryEntry.getValue());
+        }
     }
 }

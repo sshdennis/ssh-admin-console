@@ -24,9 +24,9 @@ public class GetTopCategoryCommand extends InputAuthCommand {
 
     @Override
     public CommandResponse execute() throws Exception {
-        final List<Category> categories = this.categoryDao.findByOrderByListingsDescLimit(3);
-        if (categories != null && categories.size() > 0) {
-            return CommandResponse.success(categories.get(0).getName());
+        final Category category = this.categoryDao.findOneByOrderByListingsDescLimit();
+        if (category != null) {
+            return CommandResponse.success(category.getName());
         }
         return CommandResponse.success();
     }

@@ -29,4 +29,12 @@ public class Category {
     public void setListings(final List<Listing> listings) {
         this.listings = listings;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + this.name + '\'' +
+                ", listings=" + this.listings +
+                '}';
+    }
 }

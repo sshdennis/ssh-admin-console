@@ -37,7 +37,7 @@ public class DeleteListingCommand extends InputAuthCommand {
         }
         Logger.debug(listing.toString());
 
-        if (!Objects.equals(this.authUser.getName(), listing.getUserName())) {
+        if (!Objects.equals(this.authUser.getName().toLowerCase(), listing.getUserName().toLowerCase())) {
             throw new Exception(ErrorMessage.LISTING_OWNER_MISMATCH);
         }
         this.listingDao.delete(listing);

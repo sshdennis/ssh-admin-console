@@ -1,7 +1,7 @@
 package pers.ssh.admin.console.constants;
 
 /**
- * Author:   dsu01
+ * Author:   Dennis Su
  * Date:     2019/12/7 2:01 上午
  * Description: Error message.
  */

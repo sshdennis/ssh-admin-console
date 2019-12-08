@@ -1,7 +1,5 @@
 package pers.ssh.admin.console.daos;
 
-import java.util.List;
-
 import pers.ssh.admin.console.entity.Category;
 
 /**
@@ -11,5 +9,5 @@ import pers.ssh.admin.console.entity.Category;
  */
 public interface CategoryDao {
 
-    public List<Category> findByOrderByListingsDescLimit(int limit);
+    public Category findOneByOrderByListingsDescLimit();
 }

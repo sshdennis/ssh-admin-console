@@ -6,7 +6,7 @@ package pers.ssh.admin.console.constants;
  * Description:
  */
 public enum CategoryOrderBy {
-    //    asc|dsc
+
     ASC("asc"),
     DSC("dsc");
 

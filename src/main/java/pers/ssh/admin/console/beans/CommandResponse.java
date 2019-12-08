@@ -62,4 +62,12 @@ public class CommandResponse {
     public void setResponse(final String response) {
         this.response = response;
     }
+
+    @Override
+    public String toString() {
+        return "CommandResponse{" +
+                "isSuccess=" + this.isSuccess +
+                ", response='" + this.response + '\'' +
+                '}';
+    }
 }
