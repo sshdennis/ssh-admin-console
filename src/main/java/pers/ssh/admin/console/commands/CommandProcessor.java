@@ -25,6 +25,8 @@ public class CommandProcessor {
             cmd.postExecute();
 
             return response;
+        } catch (final IllegalArgumentException iae) {
+            throw iae;
         } catch (final Exception e) {
             Logger.error("Process command error. input: " + input, e);
             return CommandResponse.error(e.getMessage());

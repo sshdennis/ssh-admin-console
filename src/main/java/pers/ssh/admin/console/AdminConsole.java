@@ -45,18 +45,14 @@ public class AdminConsole {
     }
 
     private static void printHelp() {
-        // TODO
+        System.out.println("Illegal argument...");
+        System.out.println("Usage -");
+        System.out.println("\tREGISTER <username>");
+        System.out.println("\tCREATE_LISTING <username> <title> <description> <price> <category>");
+        System.out.println("\tDELETE_LISTING <username> <listing_id>");
+        System.out.println("\tGET_LISTING <username> <listing_id>");
+        System.out.println("\tGET_CATEGORY <username> <category> {sort_price|sort_time} {asc|dsc}");
+        System.out.println("\tGET_TOP_CATEGORY <username>");
+        System.out.println("\tEXIST");
     }
-
-    // REGISTER user
-    // REGISTER user1
-    // CREATE_LISTING user 'Phone model 8' 'Black color, brand new' 1000    'Electronics'
-    // GET_LISTING user 100002
-    // DELETE_LISTING user 100002
-    // GET_CATEGORY user Electronics sort_time asc
-    // GET_CATEGORY user Electronics sort_time dsc
-    // GET_CATEGORY user Electronics sort_price asc
-    // GET_CATEGORY user Electronics sort_price dsc
-    // GET_TOP_CATEGORY user
-
 }

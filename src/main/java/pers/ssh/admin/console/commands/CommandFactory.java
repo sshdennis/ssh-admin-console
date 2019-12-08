@@ -34,7 +34,7 @@ public class CommandFactory {
      */
     public static Command createCommand(final String input) throws Exception {
         if (StringUtils.isBlank(input)) {
-            throw new Exception(ErrorMessage.INVALID_INPUT);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT);
         }
         final List<String> ins = cleanInput(input);
         final String cmdName = findCommandName(ins);

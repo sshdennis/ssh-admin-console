@@ -2,6 +2,7 @@ package pers.ssh.admin.console.commands;
 
 import java.util.List;
 
+import pers.ssh.admin.console.constants.ErrorMessage;
 import pers.ssh.admin.console.utils.Logger;
 
 /**
@@ -16,8 +17,11 @@ public abstract class InputCommand implements Command {
         for (final String parameter : parameters) {
             Logger.debug("Input parameter: " + parameter);
         }
-
-        this.setupParameters(parameters);
+        try {
+            this.setupParameters(parameters);
+        } catch (final IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT);
+        }
     }
 
     @Override
